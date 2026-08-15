@@ -1,4 +1,4 @@
-package com.mailpulse.producer.dto;
+package com.mailpulse.worker.dto;
 
 import java.time.Instant;
 import java.util.UUID;

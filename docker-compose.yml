@@ -9,3 +9,33 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: mailpulse
+      POSTGRES_USER: mailpulse
+      POSTGRES_PASSWORD: mailpulse
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mailpulse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
